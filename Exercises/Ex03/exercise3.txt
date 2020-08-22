@@ -1,0 +1,173 @@
+// CMPT 470 - Web-based Information Systems 
+// Exercise 3
+// Arsalan Macknojia
+
+// GitLab: git@csil-git1.cs.surrey.sfu.ca:amacknoj/exercise-3.git
+// Tag: e3submission
+
+-----------------------------------------Telnet HTTP Conversations----------------------------------------
+
+//-------Request
+
+telnet www.sfu.ca 80
+
+GET /~ggbaker/470e3/ HTTP/1.1
+Host: www.sfu.ca
+
+//-------Response
+
+Status Code: 200 (OK)
+
+Response:
+HTTP/1.1 200 OK
+Date: Wed, 03 Jun 2020 22:51:40 GMT
+Server: Apache
+Last-Modified: Tue, 01 Sep 2015 07:00:00 GMT
+Accept-Ranges: bytes
+Content-Length: 225
+Cache-Control: max-age=3600
+Expires: Wed, 03 Jun 2020 23:51:40 GMT
+box: b3 D=146253 t=1591224700853690
+Access-Control-Allow-Origin: *
+Content-Type: text/html
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Simple HTML Page</title>
+  </head>
+  <body>
+  <p>This is a simple HTML page for use as an example in a CMPT 470 exercise.</p>
+  </body>
+</html>
+
+
+//-------Request (If-modified-since)
+
+telnet www.sfu.ca 80
+
+GET /~ggbaker/470e3/ HTTP/1.1
+Host: www.sfu.ca
+If-modified-since: Mon, 11 May 2020 00:00:00 GMT
+
+//-------Response (If-modified-since)
+
+Status Code: 304 (Not Modified)
+
+Response:
+HTTP/1.1 304 Not Modified
+Date: Wed, 03 Jun 2020 22:59:12 GMT
+Server: Apache
+Expires: Wed, 03 Jun 2020 23:59:12 GMT
+Cache-Control: max-age=3600
+
+//---------Explanation
+
+The most obvious difference is the HTTP status code 304. 
+Secondly, the response doesn't contain HTML page because the page is not modified. 
+Also, some of the headers describing the content (Content-Length, Content-Type) are missing since there is no content. 
+
+
+//-------Request (Redirect)
+
+telnet www.sfu.ca 80
+
+GET /~ggbaker/470e3 HTTP/1.1
+Host: www.sfu.ca
+
+//-------Response (Redirect)
+
+Status Code: 301 (Moved Permanently)
+
+Response:
+HTTP/1.1 301 Moved Permanently
+Date: Wed, 03 Jun 2020 23:22:30 GMT
+Server: Apache
+Location: http://www.sfu.ca/~ggbaker/470e3/
+Cache-Control: max-age=3600
+Expires: Thu, 04 Jun 2020 00:22:30 GMT
+Content-Length: 301
+Content-Type: text/html; charset=iso-8859-1
+
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML 2.0//EN">
+<html><head>
+<title>301 Moved Permanently</title>
+</head><body>
+<h1>Moved Permanently</h1>
+<p>The document has moved <a href="http://www.sfu.ca/~ggbaker/470e3/">here</a>.</p>
+<hr>
+<address>Apache Server at www.sfu.ca Port 80</address>
+</body></html>
+
+//---------Explanation
+
+The most obvious difference is the HTTP status code 301. 
+The response contains an additional header 'Location' and a body containing HTML page with a redirect link.
+
+
+-----------------------------------------Command-Line Requests----------------------------------------
+
+//-------Request (-I)
+
+curl -I http://www.sfu.ca/~ggbaker/470e3/
+
+//-------Response (-I)
+
+HTTP/1.1 200 OK
+Date: Thu, 04 Jun 2020 03:00:15 GMT
+Server: Apache
+Last-Modified: Tue, 01 Sep 2015 07:00:00 GMT
+Accept-Ranges: bytes
+Content-Length: 225
+Cache-Control: max-age=3600
+Expires: Thu, 04 Jun 2020 04:00:15 GMT
+box: b3 D=6827 t=1591239615015368
+Access-Control-Allow-Origin: *
+Content-Type: text/html
+
+//-------Request (-esS)
+
+GET -esS http://www.sfu.ca/~ggbaker/470e3/
+
+//-------Response (-esS)
+
+GET http://www.sfu.ca/~ggbaker/470e3/
+200 OK
+Cache-Control: max-age=3600
+Connection: close
+Date: Thu, 04 Jun 2020 03:01:51 GMT
+Accept-Ranges: bytes
+Server: Apache
+Content-Length: 225
+Content-Type: text/html
+Expires: Thu, 04 Jun 2020 04:01:51 GMT
+Last-Modified: Tue, 01 Sep 2015 07:00:00 GMT
+Access-Control-Allow-Origin: *
+Box: b3 D=147144 t=1591239711673657
+Client-Date: Thu, 04 Jun 2020 03:01:51 GMT
+Client-Peer: 142.58.228.150:80
+Client-Response-Num: 1
+Title: Simple HTML Page
+X-Meta-Charset: utf-8
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Simple HTML Page</title>
+  </head>
+  <body>
+  <p>This is a simple HTML page for use as an example in a CMPT 470 exercise.</p>
+  </body>
+</html>
+
+//---------Explanation
+
+curl with command-line option -I return headers only.
+GET with command-line option -esS return headers along with response body containing HTML page. It also returns some additional details such as Connection status, Client-Date, Client-Peer, Client-Response-Num, Title, and X-Meta-Charset.
+
+-------------------------------------------Developer Tools---------------------------------------------
+
+I promise I played with the developer tools. :D 
+
