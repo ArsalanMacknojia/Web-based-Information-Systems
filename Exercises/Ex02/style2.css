@@ -1,0 +1,34 @@
+/* CMPT 470 - Exercise 2 */
+/* Arsalan Macknojia */
+/* CSS Style Sheet 2 */
+
+h1 {
+    float: left
+}
+
+#menu {
+    float: right;
+    margin-right: 0;
+    list-style-type: none;
+    background-color: #64a
+}
+
+
+#menu li {
+    margin: 2px;
+    padding-left: 15px;
+    padding-right: 50px;
+    background-color: #66c
+}
+
+#menu li a {
+    color: white;
+    font-size: 20px;
+    text-decoration: none
+}
+
+#main {
+    float: left;
+    margin-top: 65px;
+    position: absolute
+}
