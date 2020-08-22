@@ -1,0 +1,36 @@
+// CMPT 470 - Exercise 5
+// Arsalan Macknojia
+
+
+// Security Holes:
+
+1.
+Issue: Website has XSS vulnerability.
+Vulnerability Type: Cross Site Scripting (XSS) Attack
+How to reproduce the issue: Login -> New Person -> enter script in 'Notes' (e.g. <script>alert(1)</script>)
+
+2.
+Issue: Website doesn't have CSRF protection for Edit Person form (https://ggbaker.ca/security/people/<person-name>/edit).
+Vulnerability Type: Cross-Site Request Forgery (CSRF)
+How to reproduce the issue: Log into Simple PIM (https://ggbaker.ca/security/) -> Access another "malicious" website and click on a button/image -> Malicious website makes a POST request to https://ggbaker.ca/security/people/<person-name>/edit with user's correctly authenticated session and updates contact details without user's knowledge.
+
+3.
+Issue: Website doesn't have CSRF protection for New Person form (https://ggbaker.ca/security/people/new).
+Vulnerability Type: Cross-Site Request Forgery (CSRF)
+How to reproduce the issue: Log into Simple PIM (https://ggbaker.ca/security/) -> Access another "malicious" website and click on a button/image -> 
+Malicious website makes a POST request to https://ggbaker.ca/security/people/new with user's correctly authenticated session and adds a new contact without user's knowledge.
+
+4.
+Issue: Website allow user to check other people's friends even those who haven't shared their contacts by manipulating the URL.
+Vulnerability Type: Insufficient authorization/permission not checked.
+How to reproduce the issue: Login -> Friends -> enter user-id in the URL (https://ggbaker.ca/security/friends/<enter-user-id>/)
+
+5. (This might be a feature and not a bug)
+Issue: Website allow user to see all other users on the platform.
+Vulnerability Type: Insufficient authorization/permission not checked.
+How to reproduce the issue: Login -> Share my contacts with a friend -> Drop down list has all users.
+
+// Other Attempts:
+
+1. Tried SQL injection in multiple forms (Login, Edit Person, New Person)
+2. Tried extracting user's Contact information using browser history. Contact's first and last name can be determined since its part of the URL (https://ggbaker.ca/security/people/greg-baker/)
