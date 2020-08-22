@@ -1,0 +1,6 @@
+FROM nginx:latest
+
+CMD nginx -g "daemon off; error_log /dev/stdout info;"
+
+RUN rm /etc/nginx/conf.d/default.conf
+COPY updated.conf /etc/nginx/conf.d
