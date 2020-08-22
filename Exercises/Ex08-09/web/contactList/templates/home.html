@@ -1,0 +1,10 @@
+{% extends "layout.html" %}
+{% block content %}
+    {% for contact in contacts %}
+        <ul>
+            <li>
+                <a class="article-title" href="{{ url_for('contact', contact_id=contact.id) }}">{{ contact.first_name }} {{ contact.last_name }}</a>
+            </li>
+        </ul>
+    {% endfor %}
+{% endblock content %}
